@@ -1,0 +1,78 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  line-height: 2rem;
+  background-color: #fdf8e1;
+}
+
+.App {
+  display: flex;
+}
+.left {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 10%;
+  gap: 40px;
+}
+.right {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.left p {
+  font-size: 1.25rem;
+}
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  font-weight: bold;
+  width: 40%;
+  border: none;
+  background-color: #f9dc5c;
+}
+.Introduction {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  margin: 0 auto;
+}
+.features {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 2rem auto;
+}
+.features-container {
+  display: flex;
+}
+.feature-item {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.feature-icon {
+  font-size: 3rem;
+}
+.features-title {
+  align-self: center;
+  text-align: center;
+}
+.features-title h2 {
+  color: #f9d741;
+}
+.line {
+  width: 80%;
+  border: none;
+  height: 3px;
+  background-color: #f9dc5c;
+  margin: 20px auto;
+}

@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  background-color: #f8f9fa;
+  font-size: 1.25rem;
+  font-family: "Roboto", sans-serif;
+  background-color: #f9dc5c;
+}
+
+.navs {
+  display: flex;
+  gap: 15px;
+}
+.navs a {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+.navs a:hover {
+  color: #f8f9fa;
+  text-decoration: underline;
+  text-decoration-color: #f8f9fa;
+  text-decoration-thickness: 2px;
+}
+
+.icons {
+  display: flex;
+  gap: 15px;
+}
+.designed-text {
+  font-family: "CursiveFontName", cursive;
+}
