@@ -3,8 +3,11 @@ require "../connection.php";
 header("Access-Control-Allow-Origin: *"); 
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); 
 header("Access-Control-Allow-Headers: Content-Type, Authorization"); 
+
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
-    $stmt = $conn->prepare('SELECT * FROM comments');
+    $recipe_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+    $stmt = $conn->prepare('SELECT * FROM comments WHERE recipe_id = ?');
+    $stmt->bind_param('i', $recipe_id);
     $stmt->execute();
     $result = $stmt->get_result();
     
@@ -13,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         while ($row = $result->fetch_assoc()) {
             $comments[] = $row;
         }
-        echo json_encode(["comments" =>  $comments]);
+        echo json_encode(["comments" => $comments]);
     } else {
         echo json_encode(["message" => "no records were found"]);
     }

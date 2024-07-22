@@ -66,7 +66,23 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* .comment-icon {
-  font-size: 7rem;
-  color: #ccc;
-} */
+.comment-btn {
+  margin-top: 2rem;
+  padding: 1rem;
+  border-radius: 10px;
+  font-weight: bold;
+  width: 40%;
+  border: none;
+  background-color: #f9dc5c;
+}
+.comment_text {
+  color: black;
+  font-size: 1.5rem;
+  float: left;
+}
+.comment-item {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+  border-bottom: 1px solid #ddd;
+}

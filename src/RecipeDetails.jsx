@@ -6,24 +6,70 @@ import { FaRegComments } from "react-icons/fa";
 
 function RecipeDetails() {
   const [recipe, setRecipe] = useState(null);
+  const [commentText, setCommentText] = useState("");
+  const [rating, setRating] = useState("");
+  const [comments, setComments] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
-    const DisplayRecipe = async () => {
+    const fetchRecipe = async () => {
       try {
         const response = await axios.get(
           `http://localhost/foodieland/php_backend/recipes/readOne.php?id=${id}`
         );
-
         setRecipe(response.data.Recipes[0]);
-        console.log(response.data.Recipes[0]);
       } catch (error) {
         console.error("Error fetching recipe details:", error);
       }
     };
 
-    DisplayRecipe();
+    fetchRecipe();
   }, [id]);
+
+  const fetchComments = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost/foodieland/php_backend/comments/readAll.php?id=${id}`
+      );
+      setComments(response.data.comments || []);
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchComments();
+  }, [id]);
+
+  const AddComment = async () => {
+    if (!commentText || !rating) {
+      alert("Please enter both a comment and a rating.");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        `http://localhost/foodieland/php_backend/comments/create.php`,
+        {
+          comment_text: commentText,
+          rating: rating,
+          recipe_id: id,
+        },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+
+      alert(response.data.message || response.data.error);
+      setCommentText("");
+      setRating("");
+      fetchComments(); // Refresh comments after adding a new one
+    } catch (error) {
+      console.error("Error adding comment:", error);
+    }
+  };
 
   if (!recipe) {
     return <div>Loading...</div>;
@@ -45,8 +91,12 @@ function RecipeDetails() {
       </div>
       <div className="comment-container">
         <div className="comment-left">
-          <select className="comment-dropdown">
-            <option value="" disabled selected>
+          <select
+            className="comment-dropdown"
+            value={rating}
+            onChange={(e) => setRating(e.target.value)}
+          >
+            <option value="" disabled>
               Rate the recipe
             </option>
             {[1, 2, 3, 4, 5].map((rate) => (
@@ -58,11 +108,29 @@ function RecipeDetails() {
           <textarea
             className="comment-textarea"
             placeholder="Add your comments here..."
+            value={commentText}
+            onChange={(e) => setCommentText(e.target.value)}
           ></textarea>
+          <button className="comment-btn" onClick={AddComment}>
+            Add Comment
+          </button>
         </div>
         <div className="comment-right">
-          <FaRegComments className="comment-icon" />
-          <p>No comments yet</p>
+          {comments.length > 0 ? (
+            comments.map((comment) => (
+              <div key={comment.id} className="comment-item">
+                <p className="comment_text">
+                  <strong>Rating:</strong> {comment.rating}
+                </p>
+                <p className="comment_text">{comment.comment_text}</p>
+              </div>
+            ))
+          ) : (
+            <>
+              <FaRegComments className="comment-icon" />
+              <p>No comments yet</p>
+            </>
+          )}
         </div>
       </div>
     </div>
