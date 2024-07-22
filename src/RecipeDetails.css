@@ -25,3 +25,48 @@ body {
 .recipe-title {
   text-align: center;
 }
+.comment-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.comment-left {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+}
+
+.comment-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+  color: #ccc;
+  font-size: 2rem;
+}
+
+.comment-dropdown {
+  margin-bottom: 1rem;
+  width: 20%;
+  padding: 0.5rem;
+  background-color: #fdf8e1;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+.comment-textarea {
+  resize: vertical;
+  height: 150px;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* .comment-icon {
+  font-size: 7rem;
+  color: #ccc;
+} */

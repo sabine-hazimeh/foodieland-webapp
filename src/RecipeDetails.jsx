@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./RecipeDetails.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { FaRegComments } from "react-icons/fa";
 
 function RecipeDetails() {
   const [recipe, setRecipe] = useState(null);
@@ -40,6 +41,28 @@ function RecipeDetails() {
         <div className="information-container">
           <p>{recipe.description}</p>
           <p>{recipe.ingredients}</p>
+        </div>
+      </div>
+      <div className="comment-container">
+        <div className="comment-left">
+          <select className="comment-dropdown">
+            <option value="" disabled selected>
+              Rate the recipe
+            </option>
+            {[1, 2, 3, 4, 5].map((rate) => (
+              <option key={rate} value={rate}>
+                {rate}
+              </option>
+            ))}
+          </select>
+          <textarea
+            className="comment-textarea"
+            placeholder="Add your comments here..."
+          ></textarea>
+        </div>
+        <div className="comment-right">
+          <FaRegComments className="comment-icon" />
+          <p>No comments yet</p>
         </div>
       </div>
     </div>
