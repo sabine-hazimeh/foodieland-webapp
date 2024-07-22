@@ -13,13 +13,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $image = $_FILES["image"]["tmp_name"];
         $imageContent = file_get_contents($image);
 
-        // Ensure the data is read correctly
+      
         if ($imageContent === false) {
             echo json_encode(["error" => "Failed to read image file"]);
             exit();
         }
 
-        // Assuming your table structure is correct
+        
         $stmt = $conn->prepare('INSERT INTO recipes (name, image, description, ingredients) VALUES (?, ?, ?, ?)');
 
         if ($stmt === false) {
@@ -27,8 +27,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             exit();
         }
 
-        // Bind parameters
-        $stmt->bind_param('sbss', $name, $imageContent, $description, $ingredients);
+        
+        $null = NULL;
+        $stmt->bind_param('sbss', $name, $null, $description, $ingredients);
+
+        $stmt->send_long_data(1, $imageContent);
 
         try {
             $stmt->execute();

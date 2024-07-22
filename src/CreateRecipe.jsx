@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./CreateRecipe.css";
 
 function CreateRecipe() {
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     name: "",
     description: "",
     ingredients: "",
     image: null,
-  });
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
+  const fileInputRef = useRef(null);
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -35,6 +38,8 @@ function CreateRecipe() {
       );
       if (response.ok) {
         alert("Recipe submitted successfully!");
+        setFormData(initialFormData);
+        fileInputRef.current.value = "";
       } else {
         alert("Failed to submit recipe.");
       }
@@ -90,10 +95,13 @@ function CreateRecipe() {
           name="image"
           onChange={handleChange}
           accept="image/*"
+          ref={fileInputRef}
           required
         />
 
-        <button type="submit">Submit</button>
+        <button type="submit" className="form-btn">
+          Submit
+        </button>
       </form>
     </div>
   );
