@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./Recipe.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 function Recipe() {
   const [recipes, setRecipes] = useState([]);
@@ -40,7 +42,12 @@ function Recipe() {
                 alt={recipe.name}
                 className="recipe-img"
               />
-              <h2>{recipe.name}</h2>
+              <div className="card-details">
+                <h2>{recipe.name}</h2>
+                <Link to={`/details/${recipe.recipe_id}`}>
+                  <FontAwesomeIcon icon={faArrowRight} className="card-icon" />
+                </Link>
+              </div>
             </div>
           ))
         ) : (

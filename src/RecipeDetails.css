@@ -1,0 +1,27 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  line-height: 2rem;
+  background-color: #fdf8e1;
+}
+.details-container {
+  margin: 0 auto 3rem auto;
+  width: 90%;
+}
+.image-details {
+  border-radius: 15px;
+  width: 50%;
+}
+.recipe-container {
+  display: flex;
+}
+.information-container {
+  display: flex;
+  flex-direction: column;
+  padding-left: 3rem;
+  width: 50%;
+}
+.recipe-title {
+  text-align: center;
+}

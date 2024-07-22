@@ -44,7 +44,7 @@ textarea:focus {
   margin: 1rem;
 }
 
-form-btn {
+.form-btn {
   border: none;
   border-radius: 15px;
   background-color: #fdf8e1;

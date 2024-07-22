@@ -17,7 +17,7 @@ function Home() {
             next favorite recipe!
           </p>
           <Link to="/recipes">
-            <button className="btn">Explore Recipes</button>
+            <button className="home-btn">Explore Recipes</button>
           </Link>
         </div>
         <div className="right">
