@@ -1,27 +1,68 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
+import gsap from "gsap";
 import "./Home.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark, faFaceSmile } from "@fortawesome/free-regular-svg-icons";
 import { faUtensils } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import meatplate from "./assets/meatplate.png";
+
 function Home() {
+  const imageRef = useRef(null);
+  const titleRef = useRef(null);
+  const paragraphRef = useRef(null);
+  const buttonRef = useRef(null);
+
+  useEffect(() => {
+    const tl = gsap.timeline();
+    tl.fromTo(
+      imageRef.current,
+      { opacity: 0, x: -100 },
+      { opacity: 1, x: 0, duration: 1.5 }
+    )
+      .fromTo(
+        titleRef.current,
+        { opacity: 0, x: -20 },
+        { opacity: 1, x: 0, duration: 1.5 },
+        "-=0.5"
+      )
+      .fromTo(
+        paragraphRef.current,
+        { opacity: 0, x: -20 },
+        { opacity: 1, x: 0, duration: 1.5 },
+        "-=0.5"
+      )
+      .fromTo(
+        buttonRef.current,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 1.5 },
+        "-=0.5"
+      );
+  }, []);
+
   return (
     <div className="body">
       <div className="App">
         <div className="left">
-          <h1>ENJOY THE BEST FOOD RECIPES</h1>
-          <p>
+          <h1 ref={titleRef}>ENJOY THE BEST FOOD RECIPES</h1>
+          <p ref={paragraphRef}>
             Discover delicious recipes that are easy to make and perfect for any
             occasion. From quick weeknight dinners to gourmet meals, find your
             next favorite recipe!
           </p>
           <Link to="/recipes">
-            <button className="home-btn">Explore Recipes</button>
+            <button className="home-btn" ref={buttonRef}>
+              Explore Recipes
+            </button>
           </Link>
         </div>
         <div className="right">
-          <img src={meatplate} alt="Meat Plate" />
+          <img
+            src={meatplate}
+            alt="Meat Plate"
+            ref={imageRef}
+            key={Math.random()}
+          />
         </div>
       </div>
       <div className="Introduction">
