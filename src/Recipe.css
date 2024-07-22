@@ -1,0 +1,29 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  line-height: 2rem;
+  background-color: #fdf8e1;
+}
+.btn {
+  padding: 1rem;
+  border-radius: 10px;
+  font-weight: bold;
+  width: 15%;
+  border: none;
+  background-color: #f9dc5c;
+  margin: 3%;
+}
+.card {
+  border: 1px solid #f9dc5c;
+  border-radius: 15px;
+  padding: 1rem;
+  width: 25%;
+}
+.cards-container {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 1rem;
+  width: 90%;
+  margin: 0 auto;
+}
