@@ -7,7 +7,8 @@ import AboutUs from "./AboutUs";
 import Footer from "./Footer";
 import CreateRecipe from "./CreateRecipe";
 import RecipeDetails from "./RecipeDetails";
-
+import SignUp from "./SignUp";
+import Login from "./Login";
 function App() {
   return (
     <Router>
@@ -18,6 +19,8 @@ function App() {
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/create-recipe" element={<CreateRecipe />} />
         <Route path="/details/:id" element={<RecipeDetails />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
       <Footer />
     </Router>

@@ -21,7 +21,9 @@ function Header() {
       </div>
       <div className="icons">
         <FontAwesomeIcon icon={faHeart} />
-        <FontAwesomeIcon icon={faUser} />
+        <Link to="/signup" className="icons">
+          <FontAwesomeIcon icon={faUser} />
+        </Link>
       </div>
     </header>
   );
