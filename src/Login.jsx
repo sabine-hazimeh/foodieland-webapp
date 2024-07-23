@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import UserContext from "./userContext";
 import "./SignUp.css";
 
 function Login() {
@@ -7,6 +9,8 @@ function Login() {
     username: "",
     password: "",
   });
+  const navigate = useNavigate();
+  const { login } = useContext(UserContext);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -22,14 +26,25 @@ function Login() {
     try {
       const response = await axios.post(
         "http://localhost/foodieland/php_backend/users/login.php",
-        user,
+        new URLSearchParams(user),
         {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
         }
       );
-      console.log(response.data);
+
+      if (response.data.status === "success") {
+        console.log("Login successful");
+
+        // Store user data in context
+        login(response.data.user);
+        console.log(response.data.user);
+        // Redirect to homepage
+        navigate("/");
+      } else {
+        console.error(response.data.error);
+      }
     } catch (error) {
       console.error("There was an error logging in!", error);
     }

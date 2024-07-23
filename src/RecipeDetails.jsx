@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./RecipeDetails.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { FaRegComments } from "react-icons/fa";
 import { jsPDF } from "jspdf";
+import UserContext from "./userContext";
 
 function RecipeDetails() {
   const [recipe, setRecipe] = useState(null);
@@ -11,6 +12,7 @@ function RecipeDetails() {
   const [rating, setRating] = useState("");
   const [comments, setComments] = useState([]);
   const { id } = useParams();
+  const { user } = useContext(UserContext); // Access user context
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -55,6 +57,7 @@ function RecipeDetails() {
           comment_text: commentText,
           rating: rating,
           recipe_id: id,
+          user_id: user.id, // Use user.id from context
         },
         {
           headers: {

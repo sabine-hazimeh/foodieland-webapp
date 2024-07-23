@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $comment_text = $_POST["comment_text"];
     $rating = $_POST["rating"];
     $recipe_id = $_POST["recipe_id"];
+    $user_id = $_POST["user_id"]; 
 
    
     if (empty($comment_text) || empty($rating) || empty($recipe_id)) {
@@ -16,8 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         exit;
     }
 
-    $stmt = $conn->prepare('INSERT INTO comments (comment_text, rating, recipe_id) VALUES (?, ?, ?)');
-    $stmt->bind_param('sii', $comment_text, $rating, $recipe_id);
+    $stmt = $conn->prepare('INSERT INTO comments (comment_text, rating, recipe_id, user_id) VALUES (?, ?, ?, ?)');
+    $stmt->bind_param('siii', $comment_text, $rating, $recipe_id, $user_id);
 
     try {
         $stmt->execute();

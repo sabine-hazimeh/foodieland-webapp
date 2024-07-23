@@ -1,7 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
+import UserContext from "./userContext";
 import "./CreateRecipe.css";
 
 function CreateRecipe() {
+  const { user } = useContext(UserContext);
   const initialFormData = {
     name: "",
     description: "",
@@ -23,10 +25,16 @@ function CreateRecipe() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!user) {
+      alert("You must be logged in to create a recipe.");
+      return;
+    }
+
     const formDataToSend = new FormData();
     for (const key in formData) {
       formDataToSend.append(key, formData[key]);
     }
+    formDataToSend.append("user_id", user.id); // Append user_id
 
     try {
       const response = await fetch(
@@ -37,7 +45,8 @@ function CreateRecipe() {
         }
       );
       if (response.ok) {
-        alert("Recipe submitted successfully!");
+        const data = await response.json();
+        alert(data.message); // Show success message from server
         setFormData(initialFormData);
         fileInputRef.current.value = "";
       } else {
