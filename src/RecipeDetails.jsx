@@ -3,6 +3,7 @@ import "./RecipeDetails.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { FaRegComments } from "react-icons/fa";
+import { jsPDF } from "jspdf";
 
 function RecipeDetails() {
   const [recipe, setRecipe] = useState(null);
@@ -41,7 +42,7 @@ function RecipeDetails() {
     fetchComments();
   }, [id]);
 
-  const AddComment = async () => {
+  const addComment = async () => {
     if (!commentText || !rating) {
       alert("Please enter both a comment and a rating.");
       return;
@@ -65,10 +66,30 @@ function RecipeDetails() {
       alert(response.data.message || response.data.error);
       setCommentText("");
       setRating("");
-      fetchComments(); // Refresh comments after adding a new one
+      fetchComments();
     } catch (error) {
       console.error("Error adding comment:", error);
     }
+  };
+
+  const copyToClipboard = () => {
+    const url = window.location.href;
+    navigator.clipboard
+      .writeText(url)
+      .then(() => {
+        alert("Link copied to clipboard!");
+      })
+      .catch((error) => {
+        console.error("Failed to copy link:", error);
+      });
+  };
+
+  const downloadAsPDF = () => {
+    const doc = new jsPDF();
+    doc.text(`Recipe: ${recipe.name}`, 10, 10);
+    doc.text(`Description: ${recipe.description}`, 10, 20);
+    doc.text(`Ingredients: ${recipe.ingredients}`, 10, 30);
+    doc.save(`${recipe.name}.pdf`);
   };
 
   if (!recipe) {
@@ -88,6 +109,14 @@ function RecipeDetails() {
           <p>{recipe.description}</p>
           <p>{recipe.ingredients}</p>
         </div>
+      </div>
+      <div className="action-buttons">
+        <button onClick={copyToClipboard} className="comment-btn">
+          Share Recipe
+        </button>
+        <button onClick={downloadAsPDF} className="comment-btn">
+          Download Recipe
+        </button>
       </div>
       <div className="comment-container">
         <div className="comment-left">
@@ -111,7 +140,7 @@ function RecipeDetails() {
             value={commentText}
             onChange={(e) => setCommentText(e.target.value)}
           ></textarea>
-          <button className="comment-btn" onClick={AddComment}>
+          <button className="comment-btn" onClick={addComment}>
             Add Comment
           </button>
         </div>
